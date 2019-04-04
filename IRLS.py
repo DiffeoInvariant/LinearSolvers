@@ -22,7 +22,7 @@ class IRLS:
     # param yobs: observed values of regressor (variable to predict)
     # param objective: what are we solving for? Supported options 
     # param norm: norm to use in solving for resids
-    # include only "L1" right now
+    # include only "L1" and "LP" right now
     def __init__(self, external_data, yobs,objective = "L1",norm = 1 ):
         if np.ma.size(external_data, 0) != np.ma.size(yobs,0):
             print("Error: lengths are not the same.")
