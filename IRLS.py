@@ -13,7 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Author: Zane Jakobs
-# description: a class to perform L1 regression
+# description: a class to perform LP regression
 # with iteratively reweighted least square
 class IRLS:
     
