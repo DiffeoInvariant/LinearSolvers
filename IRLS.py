@@ -13,7 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Author: Zane Jakobs
-# description: a class to perform LP regression
+# description: a class to perform L1 regression
 # with iteratively reweighted least square
 class IRLS:
     
@@ -22,7 +22,7 @@ class IRLS:
     # param yobs: observed values of regressor (variable to predict)
     # param objective: what are we solving for? Supported options 
     # param norm: norm to use in solving for resids
-    # include only "L1" and "LP" right now
+    # include only "L1" right now
     def __init__(self, external_data, yobs,objective = "L1",norm = 1 ):
         if np.ma.size(external_data, 0) != np.ma.size(yobs,0):
             print("Error: lengths are not the same.")
@@ -177,6 +177,8 @@ class IRLS:
                 num_iter = num_iter + 1
                 
             elif self.objective == "LP":
+                if self.p == 2:  
+                    tolerance = 1.0e-1#stop after one iteration for least squares
                 newData = self.LPSolutionLoop(obs,predictors, beta)
                 newBeta = newData[1]
                 errList.append(newData[2])
