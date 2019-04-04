@@ -1,2 +1,2 @@
 # LinearSolvers
-Linear solvers, including Iteratively Reweighted Least Squares for L1 regression
+Linear solvers, including Iteratively Reweighted Least Squares for LP regression
