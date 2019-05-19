@@ -38,7 +38,7 @@ class IRLS:
         self.yobs = new_yobs
         
         
-    #@jit
+    @njit(cache=True, parallel=True)
     def regularize_resids(self,resids):
         for e in range(np.ma.size(resids,0)):
                 if resids[e] == 0:
@@ -49,13 +49,13 @@ class IRLS:
     # param a: matrix
     # param x: current x value in the matrix's preimage
     # return: b - ax; the L1 error
-    #@jit
+    @njit(cache=True, parallel=True)
     def L1Resids(self,y,a,beta):
         resids = y-np.matmul(a,beta)
         resids = self.regularize_resids(resids)
         return resids
         
-    #@jit
+    @njit(cache=True)
     def LpResids(self,y,a,beta):
         resids = y-np.matmul(a,beta)
         resids = self.regularize_resids(np.power(resids,self.p))
@@ -65,13 +65,14 @@ class IRLS:
     # Author: Zane Jakobs
     # param resids: residuals vector
     # return: sum of abs values of resids 
-    #@jit
+    @njit(cache=True, parallel=True)
     def loss_func(self,resids):
         tot = 0
         for r in np.nditer(resids):
             tot = tot + abs(r)
         return tot
-    #@jit
+    
+    @njit(cache=True, parallel=True)
     def LP_loss_func(self,resids):
         tot = 0
         for r in np.nditer(resids):
@@ -135,7 +136,7 @@ class IRLS:
         rdict = {1:newBeta,2:self.loss_func(epsilon)}
         return rdict
         
-   # @jit
+    @njit(cache=True)
     def LPSolutionLoop(self, obs, pred, beta):
         epsilon = self.LpResids(obs,pred,beta)
         if self.p == 2:
@@ -147,7 +148,7 @@ class IRLS:
         rdict = {1:newBeta,2:self.LP_loss_func(epsilon), 3:np.diag(weights)}
         return rdict
 
-    #@jit
+    @jit
     def getBestBeta(self,betaList, errList):
         minErr = 1.0e15
         listLen = np.ma.size(errList)
@@ -158,7 +159,7 @@ class IRLS:
     
     # Author: Zane Jakobs
     # return: optimal solution
-    #@jit
+    @njit
     def solve(self, tolerance = 1.0e-12):
         print("Fitting ", self.objective, " regression.")
         #predictors
