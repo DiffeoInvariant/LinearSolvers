@@ -1,0 +1,7 @@
+/Users/zanejakobs/jacobi/include/CMakeFiles/install/local.dir
+/Users/zanejakobs/jacobi/include/CMakeFiles/install/strip.dir
+/Users/zanejakobs/jacobi/include/CMakeFiles/install.dir
+/Users/zanejakobs/jacobi/include/CMakeFiles/list_install_components.dir
+/Users/zanejakobs/jacobi/include/CMakeFiles/rebuild_cache.dir
+/Users/zanejakobs/jacobi/include/CMakeFiles/edit_cache.dir
+/Users/zanejakobs/jacobi/include/CMakeFiles/jacobi.dir
