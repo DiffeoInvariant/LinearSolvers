@@ -1,7 +1,7 @@
 #ifndef JACOBI_H
 #define JACOBI_H
 /**
- @author: Zane Jakobs
+ @author: Emily Jakobs
  @brief: Jacobi iterative solver to solve diagonal-dominant system
  Ax = b
  */
