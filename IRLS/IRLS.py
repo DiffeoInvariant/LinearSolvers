@@ -3,7 +3,7 @@
 """
 Created on Wed Apr  3 14:02:33 2019
 
-@author: Zane Jakobs
+@author: Emily Jakobs
 
 Program to solve for L1 regression predictors
 using iteratively reweighted least squares
@@ -11,12 +11,12 @@ using iteratively reweighted least squares
 from numba import jit
 import numpy as np
 import matplotlib.pyplot as plt
-# Author: Zane Jakobs
+# Author: Emily Jakobs
 # description: a class to perform L1 regression
 # with iteratively reweighted least square
 class IRLS:
     
-    #Author: Zane Jakobs
+    #Author: Emily Jakobs
     # param external_data: predictor data input as matrix
     # param yobs: observed values of regressor (variable to predict)
     # param objective: what are we solving for? Supported options 
@@ -44,7 +44,7 @@ class IRLS:
                 if resids[e] == 0:
                     resids[e] = 1.0e-4
         return resids
-    # Author: Zane Jakobs
+    # Author: Emily Jakobs
     # param b: objective vector
     # param a: matrix
     # param x: current x value in the matrix's preimage
@@ -62,7 +62,7 @@ class IRLS:
         return resids
         
 
-    # Author: Zane Jakobs
+    # Author: Emily Jakobs
     # param resids: residuals vector
     # return: sum of abs values of resids 
     @njit(cache=True, parallel=True)
@@ -79,7 +79,7 @@ class IRLS:
             tot = tot + abs(r)**self.p
         return tot
 
-    # Author: Zane Jakobs
+    # Author: Emily Jakobs
     # param resids: vector residuals
     # return matrix whose diagonal elements E[i,i] = 1/resids[i]
     #@jit
@@ -88,7 +88,7 @@ class IRLS:
         assert np.all(resids != 0)
         return np.diagflat(np.reciprocal(resids))
 
-    # Author: Zane Jakobs
+    # Author: Emily Jakobs
     # param a: constraint/data matrix
     # param Einv: result of a call to resid_inv_mat
     # return: GLS model matrix with covariance matrix Einv (A^T EInv A)
@@ -97,7 +97,7 @@ class IRLS:
         return np.matmul(np.transpose(a), np.matmul(covmat,a) )
 
 
-    # Author: Zane Jakobs
+    # Author: Emily Jakobs
     # param c: instance of an IRLS object
     # param b: objective vector
     # param a: matrix
@@ -108,7 +108,7 @@ class IRLS:
         rhs = np.matmul(np.transpose(obvs), np.matmul(Einv,y))
         return np.linalg.solve(modelMat,rhs)
     
-    #Author: Zane Jakobs
+    #Author: Emily Jakobs
     #param old: x^(t-1)
     #param new: x^t
     #return: sum of squares of differences--that is,
@@ -123,7 +123,7 @@ class IRLS:
             
         return tot/scale
     
-    # Author: Zane Jakobs
+    # Author: Emily Jakobs
     # param obs: observations
     # param pred: predictors
     # param beta: estiamte of beta parameters
@@ -157,7 +157,7 @@ class IRLS:
                 best = n
         return betaList[best]
     
-    # Author: Zane Jakobs
+    # Author: Emily Jakobs
     # return: optimal solution
     @njit
     def solve(self, tolerance = 1.0e-12):
@@ -232,7 +232,7 @@ class IRLS:
                          'NumIterations':num_iter}
         return solution_dict
 
-    #Author: Zane Jakobs
+    #Author: Emily Jakobs
     #description: plots loss versus iteration
     def plot_loss_vs_iter(self, solution_dict):
         plt.figure()
